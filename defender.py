@@ -4,11 +4,12 @@ from tkinter import font
 import time
 
 WORK_PERIOD = 60 * 27
+REST_PERIOD = 60 * 2
 POSITIONS = ['tl', 'tr', 'br', 'bl']
 
 
 class FullScreen(object):
-    timer = 60 * 2
+    timer = REST_PERIOD
     rect = (None, None)
     rect_position = 'tl'
     width = 0
@@ -83,9 +84,16 @@ def main():
     #FullScreen().show_clock()
     #return
 
+    print("Defender started. Work: {0} min. Rest: {1} min.".format(WORK_PERIOD // 60, REST_PERIOD // 60))
+
     while True:
         time.sleep(WORK_PERIOD)
         print('Showtime!')
         FullScreen().show_clock()
 
-main()
+try:
+    main()
+except KeyboardInterrupt:
+    print("Good Bye!")
+except Exception as ex:
+    print("Error: {0}\nGood bye!".format(ex)) 
