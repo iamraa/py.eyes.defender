@@ -3,12 +3,12 @@ from tkinter import ttk
 from tkinter import font
 import time
 
-
+WORK_PERIOD = 60 * 27
 POSITIONS = ['tl', 'tr', 'br', 'bl']
 
 
 class FullScreen(object):
-    timer = 15
+    timer = 60 * 2
     rect = (None, None)
     rect_position = 'tl'
     width = 0
@@ -80,17 +80,12 @@ class FullScreen(object):
 
 
 def main():
-    i = 0
     #FullScreen().show_clock()
     #return
 
     while True:
-        time.sleep(1)
-        i += 1
-
-        if i > 10:
-            print('Showtime!')
-            i = 0
-            FullScreen().show_clock()
+        time.sleep(WORK_PERIOD)
+        print('Showtime!')
+        FullScreen().show_clock()
 
 main()
