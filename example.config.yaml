@@ -1,0 +1,3 @@
+defender:
+  work_period: 27  # minutes
+  rest_period: 2  # minutes
