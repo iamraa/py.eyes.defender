@@ -14,7 +14,7 @@ POSITIONS = ['tl', 'tr', 'br', 'bl']
 
 
 class FullScreen(object):
-    timer = REST_PERIOD * 60
+    timer = REST_PERIOD
     rect = (None, None)
     rect_position = 'tl'
     width = 0
