@@ -1,9 +1,7 @@
 import os
 
-ROOT_PATH = os.path.dirname(os.path.abspath(__file__)) + '/..'
 
-
-def setup(args):
+def setup(root_path, args):
     """
     Add/Remove shortcut to autostart
 
@@ -16,7 +14,7 @@ def setup(args):
     home = os.environ["HOME"]
     name = "py.eyes.defender"
     comment = "Helper to control time for rest"
-    command = "{0}/defender.py".format(ROOT_PATH)
+    command = "{0}/defender.py".format(root_path)
 
     # path to autostart
     dr = home + "/.config/autostart/"
@@ -26,8 +24,7 @@ def setup(args):
 
     # set logging
     if len(args) == 3 and args[2] == 'log':
-        # TODO Fix to write logs
-        command += " > " + ROOT_PATH + "/eyes.log"
+        command += " > " + root_path + "/eyes.log"
 
     operation = args[1]
     if operation == "install":

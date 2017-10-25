@@ -8,13 +8,12 @@ import yaml
 
 from tools.setup import setup
 
-WORK_PERIOD = 20
-REST_PERIOD = 2
+ROOT_PATH = os.path.dirname(os.path.abspath(__file__))
 POSITIONS = ['tl', 'tr', 'br', 'bl']
 
 
 class FullScreen(object):
-    timer = REST_PERIOD
+    timer = None
     rect = (None, None)
     rect_position = 'tl'
     width = 0
@@ -90,7 +89,8 @@ class FullScreen(object):
         self.txt.set(
             time.strftime("%H:%M:%S") + " ({0:02d}:{1:02d})".format(
                 self.timer // 60, self.timer % 60))
-        lbl = ttk.Label(self.root, textvariable=self.txt, font=fnt, foreground="green", background="black")
+        lbl = ttk.Label(self.root, textvariable=self.txt, font=fnt,
+                        foreground="green", background="black")
         lbl.place(relx=0.5, rely=0.5, anchor=CENTER)
 
         self.root.mainloop()
@@ -111,18 +111,18 @@ def config(filename):
     defender = conf.get('defender', dict())
 
     conf = {
-        'work_period': defender.get('work_period', WORK_PERIOD),
-        'rest_period': defender.get('rest_period', WORK_PERIOD),
+        'work_period': defender.get('work_period', 20),
+        'rest_period': defender.get('rest_period', 2),
     }
 
     return conf
 
 
 def main():
-    conf = config('config.yaml')
+    conf = config('{}/config.yaml'.format(ROOT_PATH))
 
     if len(sys.argv) >= 2:
-        if setup(sys.argv):
+        if setup(ROOT_PATH, sys.argv):
             exit(0)
 
     print(
