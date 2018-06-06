@@ -20,10 +20,10 @@ class FullScreen(object):
     height = 0
 
     def __init__(self, config):
-        self.timer = config['rest_period'] * 60
+        self.timer = int(config['rest_period'] * 60)
 
     def quit(self, *args):
-        self.root.destroy()
+        self.fade_away()
 
     def show_time(self):
         self.timer -= 1
@@ -94,6 +94,18 @@ class FullScreen(object):
         lbl.place(relx=0.5, rely=0.5, anchor=CENTER)
 
         self.root.mainloop()
+
+    def fade_away(self):
+        """
+        FadeOut effect on destroy
+        """
+        alpha = self.root.attributes("-alpha")
+        if alpha > 0:
+            alpha -= .1
+            self.root.attributes("-alpha", alpha)
+            self.root.after(100, self.fade_away)
+        else:
+            self.root.destroy()
 
 
 def config(filename):
